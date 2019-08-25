@@ -1,10 +1,9 @@
-import Head from 'next/head';
 import MainLayout from "../../components/main-layout.jsx";
 
 const BugPage = (props) => {
   const {
     actualBehavior,
-    bugHashedId,
+    id,
     expectedBehavior,
     stepsToRepro,
     title,
@@ -13,6 +12,8 @@ const BugPage = (props) => {
   return (
     <MainLayout>
       <h1>{title}</h1>
+      <h3>Bug id</h3>
+      <p>{id}</p>
       <h3>Expected Behavior</h3>
       <p>{expectedBehavior}</p>
       <h3>Actual Behavior</h3>
@@ -28,11 +29,11 @@ const BugPage = (props) => {
 };
 
 BugPage.getInitialProps = async ({ query }) => {
-  const { bugHashedId } = query;
+  const { id } = query;
   // todo: hit our API with this bug hashed id to get the bug in question,
   // so we can use real data in the UI
   return {
-    bugHashedId,
+    id,
     title: 'What a bug title',
     expectedBehavior: 'A thing happens',
     actualBehavior: 'A thing does not happen',
