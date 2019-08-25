@@ -3,11 +3,20 @@ import MainLayout from "../../components/main-layout.jsx";
 const BugPage = (props) => {
   const {
     actualBehavior,
+    error,
     id,
     expectedBehavior,
     stepsToRepro,
     title,
   } = props;
+
+  if (error) {
+    return (
+      <MainLayout>
+        <p>{error}: {id}</p>
+      </MainLayout>
+    )
+  }
 
   return (
     <MainLayout>
@@ -32,6 +41,20 @@ BugPage.getInitialProps = async ({ query }) => {
   const { id } = query;
   // todo: hit our API with this bug hashed id to get the bug in question,
   // so we can use real data in the UI
+
+  const validIds = [
+    'abc123',
+    'def456',
+    'ghi789',
+  ];
+
+  if (!(validIds.includes(id))) {
+    return {
+      error: 'Bug not found',
+      id
+    };
+  }
+
   return {
     id,
     title: 'What a bug title',
